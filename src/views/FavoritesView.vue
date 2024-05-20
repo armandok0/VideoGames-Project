@@ -48,7 +48,7 @@ export default {
   },
   methods: {
     loadFavoriteGames() {
-      const favorites = JSON.parse(sessionStorage.getItem('favoriteGames') || '[]');
+      const favorites = JSON.parse(localStorage.getItem('favoriteGames') || '[]');
       this.fetchGamesByIds(favorites);
     },
     async fetchGamesByIds(ids) {
@@ -81,6 +81,13 @@ export default {
     },
     handleGameClick(gameId) {
       this.$router.push({ name: 'SinglePageView', params: { id: gameId } });
+    },
+    saveToFavorites(gameId) {
+      const favorites = JSON.parse(localStorage.getItem('favoriteGames') || '[]');
+      if (!favorites.includes(gameId)) {
+        favorites.push(gameId);
+        localStorage.setItem('favoriteGames', JSON.stringify(favorites));
+      }
     }
   }
 };

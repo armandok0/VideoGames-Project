@@ -35,17 +35,17 @@ export default {
       this.updateFavorites();
     },
     checkFavorite() {
-      const favorites = JSON.parse(sessionStorage.getItem('favoriteGames') || '[]');
+      const favorites = JSON.parse(localStorage.getItem('favoriteGames') || '[]');
       return favorites.includes(this.game.id);
     },
     updateFavorites() {
-      let favorites = JSON.parse(sessionStorage.getItem('favoriteGames') || '[]');
+      let favorites = JSON.parse(localStorage.getItem('favoriteGames') || '[]');
       if (this.isFavorited) {
         favorites.push(this.game.id);
       } else {
         favorites = favorites.filter(id => id !== this.game.id);
       }
-      sessionStorage.setItem('favoriteGames', JSON.stringify(favorites));
+      localStorage.setItem('favoriteGames', JSON.stringify(favorites));
     }
   }
 };
@@ -58,6 +58,7 @@ export default {
   margin-bottom: 40px; 
   border-radius: 8px;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .game-image {

@@ -59,12 +59,7 @@ export default {
     };
   },
   created() {
-    this.retrieveGamesFromStorage();
-    if (!this.upcomingGames.length || !this.popularGames.length || !this.newGames.length) {
-      this.fetchGames();
-    } else {
-      this.loading = false;
-    }
+    this.fetchGames();
   },
   methods: {
     async fetchGames() {
@@ -83,9 +78,10 @@ export default {
         this.popularGames = responses[1].data.results;
         this.newGames = responses[2].data.results;
         this.saveGamesToStorage();
-        this.loading = false;
       } catch (error) {
-        console.error('Error fetching games:', error);
+        console.error('Error fetching games from API:', error);
+        this.retrieveGamesFromStorage();
+      } finally {
         this.loading = false;
       }
     },
